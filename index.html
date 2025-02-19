@@ -13,5 +13,35 @@
       <button id="newBookModalBtn">Add a book</button>
     </div>
     <div class="library"></div>
+    <dialog id="newBookModal">
+      <div class="modal-header">
+        <h1>New Book</h1>
+        <div class="close">
+          <img src="public/icons/close-circle.svg" alt="Close new book form" />
+        </div>
+      </div>
+      <form id="newBookForm">
+        <p class="form-element">
+          <label for="title">Title</label>
+          <input type="text" id="title" name="title" />
+        </p>
+        <p class="form-element">
+          <label for="author">Author</label>
+          <input type="text" id="author" name="author" />
+        </p>
+        <p class="form-element">
+          <label for="numPages">Page count</label>
+          <input type="number" id="numPages" name="numPages" />
+        </p>
+        <p class="form-element">
+          <input type="checkbox" id="hasRead" name="hasRead" />
+          <label for="hasRead">I've read this!</label>
+        </p>
+        <p class="form-buttons">
+          <button type="cancel" id="cancelBtn">Cancel</button>
+          <button type="submit" id="addBookBtn">Add</button>
+        </p>
+      </form>
+    </dialog>
   </body>
 </html>

@@ -1,5 +1,3 @@
-console.log("Hi, I'm gonna be a library eventually!");
-
 const library = [];
 
 function Book(author, title, numPages, read) {
@@ -43,7 +41,23 @@ function displayBooks() {
   }
 }
 
+function openNewBookModal() {
+  const dialog = document.querySelector("#newBookModal");
+  dialog.showModal();
+}
+
+function closeNewBookModal() {
+  const dialog = document.querySelector("#newBookModal");
+  dialog.close();
+}
+
 addBook("Brandon Sanderson", "Wind and Truth", 1_000_000, true);
 addBook("Brandon Sanderson", "Mistborn: The Final Empire", 430, true);
 addBook("James S. A. Corey", "Leviathan's Fall", 854, false);
 displayBooks();
+
+const newBookButton = document.querySelector("#newBookModalBtn");
+newBookButton.addEventListener("click", openNewBookModal);
+
+// TODO: Add event handlers on modal close/cancel buttons
+// TODO: Add event handler for submitting form and adding a book

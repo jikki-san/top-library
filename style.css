@@ -53,3 +53,22 @@ body {
   color: #ffffff;
   background-color: #7db03a;
 }
+
+#newBookModal {
+  margin: auto;
+  background-color: #ffffff;
+  border: none;
+  border-radius: 24px;
+  padding: 24px;
+
+  img {
+    height: 30px;
+    width: 30px;
+  }
+}
+
+::backdrop {
+  backdrop-filter: blur(6px);
+}
+
+/* TODO: style form */
