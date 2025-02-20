@@ -27,15 +27,15 @@
       <form id="newBookForm" method="post" action="https://httpbin.org/post">
         <p class="form-element standard">
           <label for="title">Title</label>
-          <input type="text" id="title" name="title" />
+          <input type="text" id="title" name="title" required />
         </p>
         <p class="form-element standard">
           <label for="author">Author</label>
-          <input type="text" id="author" name="author" />
+          <input type="text" id="author" name="author" required />
         </p>
         <p class="form-element standard">
           <label for="numPages">Page count</label>
-          <input type="number" id="numPages" name="numPages" />
+          <input type="number" id="numPages" name="numPages" required />
         </p>
         <p class="form-element">
           <input type="checkbox" id="hasRead" name="hasRead" />
