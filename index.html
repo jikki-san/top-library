@@ -17,10 +17,14 @@
       <div class="modal-header">
         <h1>New Book</h1>
         <div class="close">
-          <img src="public/icons/close-circle.svg" alt="Close new book form" />
+          <img
+            id="closeBtn"
+            src="public/icons/close-circle.svg"
+            alt="Close new book form"
+          />
         </div>
       </div>
-      <form id="newBookForm">
+      <form id="newBookForm" method="post" action="https://httpbin.org/post">
         <p class="form-element">
           <label for="title">Title</label>
           <input type="text" id="title" name="title" />
@@ -39,7 +43,7 @@
         </p>
         <p class="form-buttons">
           <button type="cancel" id="cancelBtn">Cancel</button>
-          <button type="submit" id="addBookBtn">Add</button>
+          <button type="submit" id="addBookBtn" formmethod="dialog">Add</button>
         </p>
       </form>
     </dialog>

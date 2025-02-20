@@ -29,13 +29,21 @@ function Book(author, title, numPages, read) {
   };
 }
 
-function addBook(author, title, numPages, read) {
+function addBook() {
+  const formData = new FormData(form);
+  const author = formData.get("author");
+  const title = formData.get("title");
+  const numPages = formData.get("numPages");
+  const read = formData.get("read");
   library.push(new Book(author, title, numPages, read));
 }
 
 function displayBooks() {
   const libraryContainer = document.querySelector(".library");
-  for (const book of library) {
+  const booksToAdd = libraryContainer.hasChildNodes()
+    ? [...library.slice(libraryContainer.childNodes.length)]
+    : [...library];
+  for (const book of booksToAdd) {
     const bookElement = book.getHtml();
     libraryContainer.appendChild(bookElement);
   }
@@ -51,13 +59,18 @@ function closeNewBookModal() {
   dialog.close();
 }
 
-addBook("Brandon Sanderson", "Wind and Truth", 1_000_000, true);
-addBook("Brandon Sanderson", "Mistborn: The Final Empire", 430, true);
-addBook("James S. A. Corey", "Leviathan's Fall", 854, false);
-displayBooks();
-
+const dialog = document.querySelector("#newBookModal");
 const newBookButton = document.querySelector("#newBookModalBtn");
 newBookButton.addEventListener("click", openNewBookModal);
+const cancelButton = document.querySelector("#cancelBtn");
+const closeButton = document.querySelector("#closeBtn");
+cancelButton.addEventListener("click", closeNewBookModal);
+closeButton.addEventListener("click", closeNewBookModal);
 
-// TODO: Add event handlers on modal close/cancel buttons
-// TODO: Add event handler for submitting form and adding a book
+const form = document.querySelector("#newBookForm");
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+  addBook();
+  dialog.close();
+  displayBooks();
+});
