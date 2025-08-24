@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="library.js"></script>
+    <title>Library</title>
+  </head>
+  <body>
+    <div class="top-bar">
+      <h1>Liberry</h1>
+      <button class="new-book">New Book</button>
+    </div>
+    <div class="books"></div>
+    <dialog class="new-book-modal">
+      <div class="modal-header">
+        <h2>New Book</h2>
+        <img
+          id="closeModal"
+          class="close"
+          src="public/icons/close-circle.svg"
+          alt="Close new book form"
+        />
+      </div>
+      <form id="newBookForm" action="dialog" method="post">
+        <div class="form-element">
+          <label for="title">Title</label>
+          <input type="text" id="title" name="title" />
+        </div>
+        <div class="form-element">
+          <label for="author">Author</label>
+          <input type="text" id="author" name="author" />
+        </div>
+        <div class="form-element">
+          <label for="pageCount">Page count</label>
+          <input type="number" id="pageCount" name="pageCount" />
+        </div>
+        <div class="form-element">
+          <label for="title">I've read this</label>
+          <input type="checkbox" id="hasRead" name="hasRead" />
+        </div>
+        <div class="form-buttons">
+          <button class="cancel" type="button">Cancel</button>
+          <button type="submit" formmethod="dialog">Add</button>
+        </div>
+      </form>
+    </dialog>
+  </body>
+</html>
