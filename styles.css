@@ -4,6 +4,14 @@
   box-sizing: border-box;
 }
 
+:root {
+  --bg-light: rgb(243, 243, 225);
+  --bg-normal: rgb(191, 191, 122);
+  --bg-dark: rgb(151, 151, 100);
+  --text: rgb(229, 229, 226);
+  --accent: rgb(27, 76, 92);
+}
+
 .top-bar {
   padding: 24px;
   padding-bottom: 0;
@@ -14,12 +22,12 @@
   align-items: center;
 
   h1 {
-    color: rgb(27, 76, 92);
+    color: var(--accent);
   }
 }
 
 body {
-  background-color: beige;
+  background-color: var(--bg-light);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
@@ -33,8 +41,8 @@ body {
   border: none;
   border-radius: 12px;
 
-  background-color: rgb(151, 151, 100);
-  color: rgb(229, 229, 226);
+  background-color: var(--bg-normal);
+  color: var(--text);
 
   img {
     width: 24px;
@@ -60,7 +68,7 @@ body {
   justify-content: flex-start;
   flex-wrap: wrap;
   gap: 12px;
-  background-color: rgb(197, 197, 159);
+  background-color: var(--bg-normal);
 }
 
 .book {
@@ -69,14 +77,16 @@ body {
   display: flex;
   flex-direction: column;
 
-  background-color: rgb(151, 151, 100);
-  color: rgb(229, 229, 226);
+  background-color: var(--bg-dark);
+  color: var(--text);
 }
 
 .book-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 4px;
+  padding: 4px;
 
   h3 {
     width: 100px;
@@ -91,6 +101,15 @@ body {
   }
 }
 
+.book-body {
+  padding: 4px;
+
+  button {
+    margin-top: 4px;
+    color: var(--text);
+  }
+}
+
 .form-element {
   display: flex;
   align-items: center;
@@ -99,7 +118,7 @@ body {
 }
 
 input {
-  background-color: rgb(229, 229, 226);
+  background-color: var(--text);
   border: none;
   border-radius: 16px;
 }
@@ -112,11 +131,13 @@ button {
   border: none;
   border-radius: 16px;
   padding: 4px 12px;
-  background-color: rgb(27, 76, 92);
-  color: rgb(229, 229, 226);
+  background-color: var(--accent);
+  color: var(--bg-normal);
 }
 
 button.new-book {
+  border: 4px solid var(--bg-normal);
+  color: var(--bg-normal);
   font-size: 24px;
   border-radius: 24px;
   padding: 4px 16px;
