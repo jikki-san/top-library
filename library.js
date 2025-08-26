@@ -1,6 +1,10 @@
-const library = [];
+let library = [];
 
 function Book(author, title, numPages, read) {
+  if (!new.target) {
+    throw Error("You must use the 'new' operator to call this constructor");
+  }
+  this.id = crypto.randomUUID();
   this.author = author;
   this.title = title;
   this.numPages = numPages;
@@ -11,6 +15,17 @@ function Book(author, title, numPages, read) {
     })`;
   this.getHtml = () => {
     const newBookElement = document.createElement("div");
+    newBookElement.dataset.id = this.id;
+    newBookElement.classList.add("book");
+
+    const header = document.createElement("div");
+    header.classList.add("book-header");
+    const body = document.createElement("div");
+    body.classList.add("book-body");
+
+    newBookElement.appendChild(header);
+    newBookElement.appendChild(body);
+
     const titleElement = document.createElement("h2");
     titleElement.textContent = this.title;
     const authorElement = document.createElement("h3");
@@ -19,18 +34,34 @@ function Book(author, title, numPages, read) {
     pageCountElement.textContent = `${this.numPages} pages`;
     const hasReadElement = document.createElement("p");
     hasReadElement.textContent = this.read ? "Read" : "Not read";
-    newBookElement.appendChild(titleElement);
-    newBookElement.appendChild(authorElement);
-    newBookElement.appendChild(pageCountElement);
-    newBookElement.appendChild(hasReadElement);
-    newBookElement.classList.add("book");
+
+    const deleteButton = document.createElement("img");
+    deleteButton.src = "public/icons/close-circle.svg";
+    deleteButton.alt = "Delete book";
+    deleteButton.addEventListener("click", deleteBook);
+    const readButton = document.createElement("button");
+    readButton.textContent = "I've read this";
+    readButton.addEventListener("click", markBookRead);
+
+    header.appendChild(titleElement);
+    header.appendChild(deleteButton);
+
+    body.appendChild(authorElement);
+    body.appendChild(pageCountElement);
+    body.appendChild(hasReadElement);
+    if (!this.read) {
+      body.appendChild(readButton);
+    }
 
     return newBookElement;
   };
 }
 
-function addBook() {
-  const formData = new FormData(form);
+Book.prototype.markRead = function () {
+  this.read = true;
+};
+
+function addBook(formData) {
   const author = formData.get("author");
   const title = formData.get("title");
   const numPages = formData.get("numPages");
@@ -38,15 +69,32 @@ function addBook() {
   library.push(new Book(author, title, numPages, read));
 }
 
+function deleteBook(event) {
+  const book = event.target.parentNode.parentNode;
+  const id = book.dataset.id;
+  library = library.filter((book) => book.id !== id);
+  displayBooks();
+}
+
+function markBookRead(event) {
+  const bookCard = event.target.parentNode.parentNode;
+  book = library.find((book) => book.id === bookCard.dataset.id);
+  book.markRead();
+  displayBooks();
+}
+
 function displayBooks() {
   const libraryContainer = document.querySelector(".library");
-  const booksToAdd = libraryContainer.hasChildNodes()
-    ? [...library.slice(libraryContainer.childNodes.length)]
-    : [...library];
-  for (const book of booksToAdd) {
+  clearShelf();
+  for (const book of library) {
     const bookElement = book.getHtml();
     libraryContainer.appendChild(bookElement);
   }
+}
+
+function clearShelf() {
+  const books = document.querySelector(".library");
+  books.replaceChildren();
 }
 
 function openNewBookModal() {
@@ -67,10 +115,12 @@ const closeButton = document.querySelector("#closeBtn");
 cancelButton.addEventListener("click", closeNewBookModal);
 closeButton.addEventListener("click", closeNewBookModal);
 
-const form = document.querySelector("#newBookForm");
-form.addEventListener("submit", (event) => {
+const newBookForm = document.querySelector("#newBookForm");
+newBookForm.addEventListener("submit", (event) => {
   event.preventDefault();
-  addBook();
+  const formData = new FormData(newBookForm);
+  newBookForm.reset();
+  addBook(formData);
   dialog.close();
   displayBooks();
 });
